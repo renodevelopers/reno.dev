@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(fetch("sandpiles.wasm"), go.importObject).then( wasm => {
+        go.run(wasm.instance);
+      });
+    </script>
+    <style>
+      :root {
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height:100%;
+        margin: 10px;
+        background: black;
+        color: #DDD;
+        text-align: center;
+        /* animation: spin 10s infinite linear; */
+      }
+      body * {
+        max-width: 900px;
+      }
+      
+      canvas {
+        margin: 0 auto;
+        filter: blur(1px);
+      }
+      @keyframes spin {
+        0% {filter: hue-rotate(180deg)}
+        50% {filter: hue-rotate(320deg)}
+        100% {filter: hue-rotate(180deg)}
+      }
+    </style>
+  </head>
+  <body>
+    <h1>This canvas is being updated by the Go programming language</h1>
+    <input id="color-multiple" type="range" min="1" max="50" step="1" value="0"/>
+  </body>
+</html>
